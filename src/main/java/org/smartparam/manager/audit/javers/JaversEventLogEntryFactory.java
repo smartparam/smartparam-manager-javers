@@ -24,7 +24,7 @@ import org.smartparam.editor.model.ParameterEntryKey;
 import org.smartparam.editor.model.ParameterKey;
 import org.smartparam.engine.core.parameter.Parameter;
 import org.smartparam.engine.core.parameter.ParameterEntry;
-import org.smartparam.manager.Action;
+import org.smartparam.manager.authz.Action;
 import org.smartparam.manager.audit.EventDescription;
 import org.smartparam.manager.audit.EventLogEntry;
 import org.smartparam.manager.audit.EventLogEntryFactory;
