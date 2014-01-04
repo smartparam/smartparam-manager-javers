@@ -25,9 +25,9 @@ import org.smartparam.editor.model.ParameterKey;
 import org.smartparam.engine.core.parameter.Parameter;
 import org.smartparam.engine.core.parameter.ParameterEntry;
 import org.smartparam.manager.Action;
+import org.smartparam.manager.audit.EventDescription;
 import org.smartparam.manager.audit.EventLogEntry;
 import org.smartparam.manager.audit.EventLogEntryFactory;
-import org.smartparam.manager.authz.UserProfile;
 
 /**
  *
@@ -41,7 +41,7 @@ public class JaversEventLogEntryFactory implements EventLogEntryFactory {
     }
 
     @Override
-    public EventLogEntry produceParameterCreationLog(UserProfile responsible, RepositoryName repository, ParameterKey key, Parameter initialState) {
+    public EventLogEntry produceParameterCreationLog(EventDescription description, Parameter initialState) {
         Javers javers = JaversBuilder.javers().registerEntity(JaversEventLogEntry.class)
                 .registerValueObject(ParameterKey.class, ParameterEntryKey.class, RepositoryName.class)
                 .build();
@@ -50,32 +50,26 @@ public class JaversEventLogEntryFactory implements EventLogEntryFactory {
         // i can provide serializer (Jackson, Gson) with configuration to serialize Value Objects
         String serializedDiff = "diff.serialize(Serializer ?)";
 
-        return JaversEventLogEntry.parameterEvent(new Date().getTime(), repository, Action.CREATE_PARAMETER, responsible.login(), key,
-                diff, serializedDiff);
+        return JaversEventLogEntry.parameterEvent(new Date().getTime(), description, Action.CREATE_PARAMETER, diff, serializedDiff);
     }
 
-    @Override
-    public EventLogEntry produceParameterChangeLog(UserProfile responsible, Action action, RepositoryName repository, ParameterKey key, Parameter previousState, Parameter currentState) {
+    public EventLogEntry produceParameterChangeLog(EventDescription description, Action action, Parameter previousState, Parameter currentState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public EventLogEntry produceParameterDeletionLog(UserProfile responsible, RepositoryName repository, ParameterKey key, Parameter lastState) {
+    public EventLogEntry produceParameterDeletionLog(EventDescription description, Parameter lastState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public EventLogEntry produceEntryCreationLog(UserProfile responsible, RepositoryName repository, ParameterKey key, ParameterEntryKey entryKey, ParameterEntry initialState) {
+    public EventLogEntry produceEntryCreationLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntry initialState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public EventLogEntry produceEntryChangeLog(UserProfile responsible, RepositoryName repository, ParameterKey key, ParameterEntryKey entryKey, ParameterEntry previousState, ParameterEntry currentState) {
+    public EventLogEntry produceEntryChangeLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntry previousState, ParameterEntry currentState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public EventLogEntry produceEntryDeletionLog(UserProfile responsible, RepositoryName repository, ParameterKey key, ParameterEntryKey entryKey, ParameterEntry lastState) {
+    public EventLogEntry produceEntryDeletionLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntry lastState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

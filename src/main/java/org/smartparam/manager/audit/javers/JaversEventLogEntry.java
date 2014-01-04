@@ -20,6 +20,7 @@ import org.smartparam.editor.model.ParameterEntryKey;
 import org.smartparam.editor.model.ParameterKey;
 import org.smartparam.manager.Action;
 import org.smartparam.manager.audit.AbstractEventLogEntry;
+import org.smartparam.manager.audit.EventDescription;
 
 /**
  * Generic parameter should be something like Diff? Or other representation of change set.
@@ -30,31 +31,27 @@ import org.smartparam.manager.audit.AbstractEventLogEntry;
 public class JaversEventLogEntry extends AbstractEventLogEntry<Object> {
 
     static JaversEventLogEntry parameterEvent(long timestamp,
-            RepositoryName repository, Action action, String responsibleLogin,
-            ParameterKey parameterKey,
+            EventDescription description, Action action,
             Object stateDiff, String serializedDiff) {
-        return new JaversEventLogEntry(timestamp, repository, action, responsibleLogin, parameterKey, stateDiff, serializedDiff);
+        return new JaversEventLogEntry(timestamp, description, action, stateDiff, serializedDiff);
     }
 
     static JaversEventLogEntry entryEvent(long timestamp,
-            RepositoryName repository, Action action, String responsibleLogin,
-            ParameterKey parameterKey, ParameterEntryKey parameterEntryKey,
+            EventDescription description, Action action, ParameterEntryKey parameterEntryKey,
             Object stateDiff, String serializedDiff) {
-        return new JaversEventLogEntry(timestamp, repository, action, responsibleLogin, parameterKey, parameterEntryKey, stateDiff, serializedDiff);
+        return new JaversEventLogEntry(timestamp, description, action, parameterEntryKey, stateDiff, serializedDiff);
     }
 
     private JaversEventLogEntry(long timestamp,
-            RepositoryName repository, Action action, String responsibleLogin,
-            ParameterKey parameterKey,
+            EventDescription description, Action action,
             Object stateDiff, String serializedDiff) {
-        super(timestamp, repository, action, responsibleLogin, parameterKey, stateDiff, serializedDiff);
+        super(timestamp, description, action, stateDiff, serializedDiff);
     }
 
     private JaversEventLogEntry(long timestamp,
-            RepositoryName repository, Action action, String responsibleLogin,
-            ParameterKey parameterKey, ParameterEntryKey entryKey,
+            EventDescription description, Action action, ParameterEntryKey entryKey,
             Object stateDiff, String serializedDiff) {
-        super(timestamp, repository, action, responsibleLogin, parameterKey, entryKey, stateDiff, serializedDiff);
+        super(timestamp, description, action, entryKey, stateDiff, serializedDiff);
     }
 
 }
