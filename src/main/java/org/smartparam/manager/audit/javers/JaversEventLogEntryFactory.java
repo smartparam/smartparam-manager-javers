@@ -22,8 +22,8 @@ import org.javers.model.domain.Diff;
 import org.smartparam.editor.identity.RepositoryName;
 import org.smartparam.editor.model.ParameterEntryKey;
 import org.smartparam.editor.model.ParameterKey;
+import org.smartparam.editor.model.map.ParameterEntryMap;
 import org.smartparam.engine.core.parameter.Parameter;
-import org.smartparam.engine.core.parameter.ParameterEntry;
 import org.smartparam.manager.authz.Action;
 import org.smartparam.manager.audit.EventDescription;
 import org.smartparam.manager.audit.EventLogEntry;
@@ -61,15 +61,15 @@ public class JaversEventLogEntryFactory implements EventLogEntryFactory {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public EventLogEntry produceEntryCreationLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntry initialState) {
+    public EventLogEntry produceEntryCreationLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntryMap initialState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public EventLogEntry produceEntryChangeLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntry previousState, ParameterEntry currentState) {
+    public EventLogEntry produceEntryChangeLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntryMap previousState, ParameterEntryMap currentState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public EventLogEntry produceEntryDeletionLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntry lastState) {
+    public EventLogEntry produceEntryDeletionLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntryMap lastState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
