@@ -19,11 +19,11 @@ import java.util.Date;
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
 import org.javers.model.domain.Diff;
-import org.smartparam.editor.identity.RepositoryName;
-import org.smartparam.editor.model.ParameterEntryKey;
-import org.smartparam.editor.model.ParameterKey;
-import org.smartparam.editor.model.map.ParameterEntryMap;
+import org.smartparam.engine.core.output.entry.MapEntry;
 import org.smartparam.engine.core.parameter.Parameter;
+import org.smartparam.engine.core.parameter.ParameterKey;
+import org.smartparam.engine.core.parameter.entry.ParameterEntryKey;
+import org.smartparam.engine.core.repository.RepositoryName;
 import org.smartparam.manager.authz.Action;
 import org.smartparam.manager.audit.EventDescription;
 import org.smartparam.manager.audit.EventLogEntry;
@@ -53,23 +53,28 @@ public class JaversEventLogEntryFactory implements EventLogEntryFactory {
         return JaversEventLogEntry.parameterEvent(new Date().getTime(), description, Action.CREATE_PARAMETER, diff, serializedDiff);
     }
 
+    @Override
     public EventLogEntry produceParameterChangeLog(EventDescription description, Action action, Parameter previousState, Parameter currentState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public EventLogEntry produceParameterDeletionLog(EventDescription description, Parameter lastState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public EventLogEntry produceEntryCreationLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntryMap initialState) {
+    @Override
+    public EventLogEntry produceEntryCreationLog(EventDescription description, ParameterEntryKey entryKey, MapEntry initialState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public EventLogEntry produceEntryChangeLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntryMap previousState, ParameterEntryMap currentState) {
+    @Override
+    public EventLogEntry produceEntryChangeLog(EventDescription description, ParameterEntryKey entryKey, MapEntry previousState, MapEntry currentState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public EventLogEntry produceEntryDeletionLog(EventDescription description, ParameterEntryKey entryKey, ParameterEntryMap lastState) {
+    @Override
+    public EventLogEntry produceEntryDeletionLog(EventDescription description, ParameterEntryKey entryKey, MapEntry lastState) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
