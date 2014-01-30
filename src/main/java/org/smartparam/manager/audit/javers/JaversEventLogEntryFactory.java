@@ -15,42 +15,45 @@
  */
 package org.smartparam.manager.audit.javers;
 
-import java.util.Date;
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
-import org.javers.model.domain.Diff;
+import org.javers.core.diff.Diff;
 import org.smartparam.engine.core.output.entry.MapEntry;
 import org.smartparam.engine.core.parameter.Parameter;
-import org.smartparam.engine.core.parameter.ParameterKey;
 import org.smartparam.engine.core.parameter.entry.ParameterEntryKey;
-import org.smartparam.engine.core.repository.RepositoryName;
-import org.smartparam.manager.authz.Action;
+import org.smartparam.engine.matchers.decoder.Range;
 import org.smartparam.manager.audit.EventDescription;
 import org.smartparam.manager.audit.EventLogEntry;
 import org.smartparam.manager.audit.EventLogEntryFactory;
+import org.smartparam.manager.authz.Action;
+
+import java.util.Date;
 
 /**
  *
  * @author Adam Dubiel
  */
 public class JaversEventLogEntryFactory implements EventLogEntryFactory {
+    private Javers javers;
 
     @Override
     public Class<? extends EventLogEntry> produces() {
         return JaversEventLogEntry.class;
     }
 
+    public JaversEventLogEntryFactory() {
+        javers = JaversBuilder.javers()
+                              .registerValue(Range.class)
+                              .registerValueObject(MapEntry.class)
+                              .registerValue(Object.class)
+                              .registerValueTypeAdapter(new StarTypeAdapter())
+                              .typeSafeValues()
+                              .build();
+    }
+
     @Override
     public EventLogEntry produceParameterCreationLog(EventDescription description, Parameter initialState) {
-        Javers javers = JaversBuilder.javers().registerEntity(JaversEventLogEntry.class)
-                .registerValueObject(ParameterKey.class, ParameterEntryKey.class, RepositoryName.class)
-                .build();
-        Diff diff = javers.compare("someone", null, initialState);
-        // how to serialize diff? is serialized diff eligalbe for persistence?
-        // i can provide serializer (Jackson, Gson) with configuration to serialize Value Objects
-        String serializedDiff = "diff.serialize(Serializer ?)";
-
-        return JaversEventLogEntry.parameterEvent(new Date().getTime(), description, Action.CREATE_PARAMETER, diff, serializedDiff);
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
@@ -65,13 +68,16 @@ public class JaversEventLogEntryFactory implements EventLogEntryFactory {
 
     @Override
     public EventLogEntry produceEntryCreationLog(EventDescription description, ParameterEntryKey entryKey, MapEntry initialState) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Diff diff = javers.initial(description.responsibleLogin(), initialState);
+        String json = javers.toJson(diff);
+        return JaversEventLogEntry.entryEvent(new Date().getTime(), description, Action.ADD_ENTRY, entryKey, diff, json);
     }
 
     @Override
     public EventLogEntry produceEntryChangeLog(EventDescription description, ParameterEntryKey entryKey, MapEntry previousState, MapEntry currentState) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+        Diff diff = javers.compare(description.responsibleLogin(), previousState,  currentState);
+        String json = javers.toJson(diff);
+        return JaversEventLogEntry.entryEvent(new Date().getTime(), description, Action.UPDATE_ENTRY, entryKey, diff, json);    }
 
     @Override
     public EventLogEntry produceEntryDeletionLog(EventDescription description, ParameterEntryKey entryKey, MapEntry lastState) {
