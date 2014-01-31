@@ -15,10 +15,11 @@
  */
 package org.smartparam.manager.audit.javers;
 
+import org.javers.core.diff.Diff;
 import org.smartparam.engine.core.parameter.entry.ParameterEntryKey;
-import org.smartparam.manager.authz.Action;
 import org.smartparam.manager.audit.AbstractEventLogEntry;
 import org.smartparam.manager.audit.EventDescription;
+import org.smartparam.manager.authz.Action;
 
 /**
  * Generic parameter should be something like Diff? Or other representation of change set.
@@ -30,13 +31,13 @@ public class JaversEventLogEntry extends AbstractEventLogEntry<Object> {
 
     static JaversEventLogEntry parameterEvent(long timestamp,
             EventDescription description, Action action,
-            Object stateDiff, String serializedDiff) {
+            Diff stateDiff, String serializedDiff) {
         return new JaversEventLogEntry(timestamp, description, action, stateDiff, serializedDiff);
     }
 
     static JaversEventLogEntry entryEvent(long timestamp,
             EventDescription description, Action action, ParameterEntryKey parameterEntryKey,
-            Object stateDiff, String serializedDiff) {
+            Diff stateDiff, String serializedDiff) {
         return new JaversEventLogEntry(timestamp, description, action, parameterEntryKey, stateDiff, serializedDiff);
     }
 
@@ -48,8 +49,16 @@ public class JaversEventLogEntry extends AbstractEventLogEntry<Object> {
 
     private JaversEventLogEntry(long timestamp,
             EventDescription description, Action action, ParameterEntryKey entryKey,
-            Object stateDiff, String serializedDiff) {
+            Diff stateDiff, String serializedDiff) {
         super(timestamp, description, action, entryKey, stateDiff, serializedDiff);
+    }
+
+    Diff getDiff() {
+        return (Diff)eventDetails();
+    }
+
+    String getSerializedDiff() {
+        return serializedEventDetails();
     }
 
 }
