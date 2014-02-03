@@ -4,7 +4,7 @@
 
     <groupId>org.smartparam.manager</groupId>
     <artifactId>smartparam-manager-javers</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>smartparam-manager-javers</name>
@@ -23,7 +23,7 @@
         <url>https://bitbucket.org/smartparam/smartparam-manager</url>
         <connection>scm:git:git@github.com:smartparam/smartparam-manager-javers.git</connection>
         <developerConnection>scm:git:git@github.com:smartparam/smartparam-manager-javers.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>smartparam-manager-javers-0.1.0</tag>
     </scm>
 
     <properties>
