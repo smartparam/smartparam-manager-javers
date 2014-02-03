@@ -7,6 +7,7 @@ import org.smartparam.engine.core.index.Star;
  * @author bartosz walacik
  */
 public class StarTypeAdapter extends BasicStringTypeAdapter<Star> {
+
     @Override
     public String serialize(Star star) {
         return Star.SYMBOL;
