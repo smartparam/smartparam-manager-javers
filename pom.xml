@@ -23,13 +23,13 @@
         <dependency>
             <groupId>org.smartparam.manager</groupId>
             <artifactId>smartparam-manager-backend</artifactId>
-            <version>${project.version}</version>
+            <version>0.1.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.smartparam.manager</groupId>
             <artifactId>smartparam-manager-json</artifactId>
-            <version>${project.version}</version>
+            <version>0.1.0</version>
         </dependency>
 
         <dependency>
