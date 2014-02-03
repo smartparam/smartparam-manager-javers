@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>smartparam-manager-javers</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
 
     <name>smartparam-manager-javers</name>
     <description>SmartParam manager Javers audit diff factory.</description>
