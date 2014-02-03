@@ -21,8 +21,8 @@
 
     <scm>
         <url>https://bitbucket.org/smartparam/smartparam-manager</url>
-        <connection>scm:git:git@github.com:smartparam/smartparam-manager.git</connection>
-        <developerConnection>scm:git:git@github.com:smartparam/smartparam-manager.git</developerConnection>
+        <connection>scm:git:git@github.com:smartparam/smartparam-manager-javers.git</connection>
+        <developerConnection>scm:git:git@github.com:smartparam/smartparam-manager-javers.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
