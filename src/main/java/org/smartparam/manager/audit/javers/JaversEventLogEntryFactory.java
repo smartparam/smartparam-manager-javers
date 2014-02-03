@@ -21,19 +21,20 @@ import org.javers.core.diff.Diff;
 import org.smartparam.engine.core.output.entry.MapEntry;
 import org.smartparam.engine.core.parameter.Parameter;
 import org.smartparam.engine.core.parameter.entry.ParameterEntryKey;
-import org.smartparam.engine.matchers.decoder.Range;
 import org.smartparam.manager.audit.EventDescription;
 import org.smartparam.manager.audit.EventLogEntry;
 import org.smartparam.manager.audit.EventLogEntryFactory;
 import org.smartparam.manager.authz.Action;
 
 import java.util.Date;
+import org.smartparam.engine.matchers.type.Range;
 
 /**
  *
  * @author Adam Dubiel
  */
 public class JaversEventLogEntryFactory implements EventLogEntryFactory {
+
     private Javers javers;
 
     @Override
@@ -43,12 +44,12 @@ public class JaversEventLogEntryFactory implements EventLogEntryFactory {
 
     public JaversEventLogEntryFactory() {
         javers = JaversBuilder.javers()
-                              .registerValue(Range.class)
-                              .registerValueObject(MapEntry.class)
-                              .registerValue(Object.class)
-                              .registerValueTypeAdapter(new StarTypeAdapter())
-                              .typeSafeValues()
-                              .build();
+                .registerValue(Range.class)
+                .registerValueObject(MapEntry.class)
+                .registerValue(Object.class)
+                .registerValueTypeAdapter(new StarTypeAdapter())
+                .typeSafeValues()
+                .build();
     }
 
     @Override
@@ -75,9 +76,10 @@ public class JaversEventLogEntryFactory implements EventLogEntryFactory {
 
     @Override
     public EventLogEntry produceEntryChangeLog(EventDescription description, ParameterEntryKey entryKey, MapEntry previousState, MapEntry currentState) {
-        Diff diff = javers.compare(description.responsibleLogin(), previousState,  currentState);
+        Diff diff = javers.compare(description.responsibleLogin(), previousState, currentState);
         String json = javers.toJson(diff);
-        return JaversEventLogEntry.entryEvent(new Date().getTime(), description, Action.UPDATE_ENTRY, entryKey, diff, json);    }
+        return JaversEventLogEntry.entryEvent(new Date().getTime(), description, Action.UPDATE_ENTRY, entryKey, diff, json);
+    }
 
     @Override
     public EventLogEntry produceEntryDeletionLog(EventDescription description, ParameterEntryKey entryKey, MapEntry lastState) {
