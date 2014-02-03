@@ -27,8 +27,6 @@ import org.smartparam.manager.audit.EventLogEntryFactory;
 import org.smartparam.manager.authz.Action;
 
 import java.util.Date;
-import org.smartparam.engine.matchers.type.Range;
-import org.smartparam.engine.matchers.type.RangeBoundary;
 
 /**
  *
@@ -46,7 +44,6 @@ public class JaversEventLogEntryFactory implements EventLogEntryFactory {
     public JaversEventLogEntryFactory() {
         javers = JaversBuilder.javers()
                 .registerValueObject(MapEntry.class)
-                .registerValue(Object.class)
                 .registerValueTypeAdapter(new RangeTypeAdapter())
                 .registerValueTypeAdapter(new StarTypeAdapter())
                 .typeSafeValues()
