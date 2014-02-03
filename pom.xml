@@ -10,6 +10,8 @@
     <name>smartparam-manager-javers</name>
     <description>SmartParam manager Javers audit diff factory.</description>
 
+    <inceptionYear>2014</inceptionYear>
+
     <url>http://smartparam.org</url>
 
     <licenses>
@@ -18,6 +20,15 @@
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>Adam Dubiel</name>
+        </developer>
+        <developer>
+            <name>Bartosz Walacik</name>
+        </developer>
+    </developers>
 
     <scm>
         <url>https://bitbucket.org/smartparam/smartparam-manager</url>
