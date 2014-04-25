@@ -4,7 +4,7 @@
 
     <groupId>org.smartparam.manager</groupId>
     <artifactId>smartparam-manager-javers</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>smartparam-manager-javers</name>
